@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useRef } from 'react'
 
 import { View, StyleSheet, TextInput } from 'react-native'
 
@@ -8,17 +8,21 @@ type Props = {
     onSearching: (text: string) => void
 }
 
-// eslint-disable-next-line no-undef
-let timeoutId: NodeJS.Timer
-
-// eslint-disable-next-line no-undef
 export default function SearchBarView(props: Props): JSX.Element {
+    const timeoutId = useRef<NodeJS.Timer>()
     const onChangeText = useCallback(
         (text: string): void => {
-            clearTimeout(timeoutId)
-            timeoutId = setTimeout(() => {
+            const clearCurrentTimeout = (): void => {
+                if (timeoutId.current) {
+                    clearTimeout(timeoutId.current)
+                }
+            }
+
+            clearCurrentTimeout()
+            timeoutId.current = setTimeout(() => {
+                console.log(text)
                 props.onSearching(text)
-                clearTimeout(timeoutId)
+                clearCurrentTimeout()
             }, 500)
         },
         [props],

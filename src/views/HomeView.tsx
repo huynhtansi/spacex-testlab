@@ -15,7 +15,6 @@ type RenderItemProps = {
     item: Launch
 }
 
-// eslint-disable-next-line no-undef
 export default function HomeView(): JSX.Element {
     const inset = useSafeAreaInsets()
     const [data, setData] = useState<Launch[]>([])
@@ -37,7 +36,7 @@ export default function HomeView(): JSX.Element {
     const [refreshing, setRefreshing] = useState(false)
 
     useEffect(performFetch, [refreshing])
-    // eslint-disable-next-line no-undef
+
     const renderItem = ({ item }: RenderItemProps): JSX.Element => {
         return (
             <Item
@@ -64,10 +63,7 @@ export default function HomeView(): JSX.Element {
                 data={data.filter((item) => item.name.includes(searchText))}
                 renderItem={renderItem}
                 contentContainerStyle={[styles.flatListContainer, { paddingBottom: inset.bottom }]}
-                ItemSeparatorComponent={
-                    // eslint-disable-next-line no-undef
-                    (): JSX.Element => <View style={styles.seperator} />
-                }
+                ItemSeparatorComponent={(): JSX.Element => <View style={styles.seperator} />}
                 refreshing={refreshing}
                 onRefresh={performFetch}
             />

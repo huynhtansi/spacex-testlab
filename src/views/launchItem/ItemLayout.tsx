@@ -14,7 +14,6 @@ type Props = {
 
 export const HEIGHT = 130
 
-// eslint-disable-next-line no-undef
 export default function ItemLayout(props: Props): JSX.Element {
     const {
         itemData: { name, flight_number, date_local, links, date_precision },

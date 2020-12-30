@@ -9,6 +9,7 @@ module.exports = {
             [
                 1, { "extensions": [".js", ".jsx", ".tsx"] }
             ],
+        "no-undef": "off",
         "semi": ["error", "never"],
         "max-len": ["warn", { code: 100, ignoreComments: true }],
         "object-curly-spacing": ["error", "always"],

@@ -8,7 +8,6 @@ import HomeContainer from 'views'
 
 enableScreens()
 
-// eslint-disable-next-line no-undef
 export default (): JSX.Element => {
     return (
         <NavigationContainer>

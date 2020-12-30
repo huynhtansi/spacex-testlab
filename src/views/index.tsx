@@ -9,7 +9,6 @@ import DetailView from './DetailView'
 
 const Stack = createNativeStackNavigator<HomeNavigationProps>()
 
-// eslint-disable-next-line no-undef
 export default function HomeContainer(): JSX.Element {
     return (
         <>

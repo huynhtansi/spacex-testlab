@@ -15,7 +15,6 @@ type Props = {
     route: RouteProp<HomeNavigationProps, 'Detail'>
 }
 
-// eslint-disable-next-line no-undef
 export default function DetailView(props: Props): JSX.Element {
     const { navigation, route } = props
     const {
