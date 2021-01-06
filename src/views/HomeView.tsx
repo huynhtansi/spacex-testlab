@@ -8,6 +8,8 @@ import { Launch } from 'types/Models'
 import SearchBarView from './SearchBarView'
 import Item from './launchItem/Item'
 
+import { simpleDateString } from '../Utils'
+
 const EndPoint = 'https://api.spacexdata.com/v4/launches/upcoming'
 
 type RenderItemProps = {
@@ -19,6 +21,7 @@ export default function HomeView(): JSX.Element {
     const inset = useSafeAreaInsets()
     const [data, setData] = useState<Launch[]>([])
     const [searchText, setSearchText] = useState('')
+    const [searchByDate, setSearchByDate] = useState<boolean | undefined>(false)
 
     const performFetch = (): void => {
         fetch(EndPoint)
@@ -50,9 +53,20 @@ export default function HomeView(): JSX.Element {
         )
     }
 
-    const onSearching = useCallback((text: string): void => {
+    const onSearching = useCallback((text: string, byDate?: boolean): void => {
+        setSearchByDate(byDate)
         setSearchText(text || '')
     }, [])
+
+    const filterData = useCallback((): Array<Launch> => {
+        return data.filter((item) => {
+            if (searchByDate) {
+                const dateStringLocalFormatted = simpleDateString(searchText)
+                return dateStringLocalFormatted === simpleDateString(item.date_local)
+            }
+            return item.name.includes(searchText)
+        })
+    }, [data, searchText, searchByDate])
 
     return (
         <>
@@ -60,7 +74,7 @@ export default function HomeView(): JSX.Element {
                 <SearchBarView onSearching={onSearching} />
             </View>
             <FlatList
-                data={data.filter((item) => item.name.includes(searchText))}
+                data={filterData()}
                 renderItem={renderItem}
                 contentContainerStyle={[styles.flatListContainer, { paddingBottom: inset.bottom }]}
                 ItemSeparatorComponent={(): JSX.Element => <View style={styles.seperator} />}

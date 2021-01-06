@@ -34,7 +34,6 @@ type ItemProps = {
     onSwipe: () => void
 }
 
-// eslint-disable-next-line no-undef
 export default function Item({ item, onSwipe }: ItemProps): JSX.Element {
     const { gestureHandler, translation, velocity, state } = usePanGestureHandler()
     const translateX = useValue(0)
